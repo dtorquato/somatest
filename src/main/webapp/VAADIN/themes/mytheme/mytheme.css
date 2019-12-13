@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+@import "../valo/styles.css";
+
+
+
+@mixin mytheme {
+  @include valo;
+
+  .green {
+    background: yellow;
+  }	
+}

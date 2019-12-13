@@ -179,7 +179,7 @@ public class MainUI extends UI{
 		grid.removeAllColumns();
 		grid.addColumn(Transaction::getDateTransaction).setCaption("Data Operação");//.setWidth(196)
 		grid.addColumn(Transaction::getType).setCaption("Tipo Operação");//.setWidth(220) 
-		grid.addColumn(Transaction::getValue).setCaption("Valor Operação").setStyleGenerator(cell ->{ return "success";});//.setWidth(144)
+		grid.addColumn(Transaction::getValue).setCaption("Valor Operação").setStyleGenerator(testBean -> "valo-error-text-color");//.setWidth(144)
 		
 		
 		return grid;
