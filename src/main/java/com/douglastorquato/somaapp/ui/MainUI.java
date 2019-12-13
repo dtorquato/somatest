@@ -46,6 +46,7 @@ public class MainUI extends UI{
 	private List<Transaction> gridTransactions;
 	private Button transactionButton;
 	private Button employeeButton;
+	private Integer soma;
 	
 	@Autowired
 	private EmployeeService employeeService;	
@@ -124,7 +125,11 @@ public class MainUI extends UI{
 			this.transactionGrid = createTransactionGrid();
 			this.gridTransactions.addAll(this.transactionService.findAll());
 			formLayout.addComponent(this.transactionGrid);
-
+			int sum = this.transactionService.findAll().stream().mapToInt(o->o.getValue()).sum();
+			Label header = new Label("Saldo: " + sum);
+	        header.addStyleName("green");
+	        formLayout.addComponent(header);
+			
 		});
 		
 	
@@ -171,16 +176,8 @@ public class MainUI extends UI{
 		grid.removeAllColumns();
 		grid.addColumn(Transaction::getDateTransaction).setCaption("Data Operação");//.setWidth(196)
 		grid.addColumn(Transaction::getType).setCaption("Tipo Operação");//.setWidth(220) 
-		//grid.addColumn(Transaction::getValue).setCaption("Valor Operação");//.setWidth(144)
-		grid.addColumn(Transaction::getValue).setCaption("Valor Operação").setStyleGenerator(cellRef -> { 
-		      if ("value".equals(cellRef.getId())) { 
-		          if (((Integer) cellRef.getValue()) > 0) 
-		              return "rightalign supercell"; 
-		          else 
-		              return "rightalign"; 
-		      } else 
-		          return null; 
-		  });//.setWidth(144)
+		grid.addColumn(Transaction::getValue).setCaption("Valor Operação");//.setWidth(144)
+		
 		
 		return grid;
 	}
