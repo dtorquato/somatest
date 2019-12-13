@@ -103,8 +103,11 @@ public class MainUI extends UI{
 		buttonsLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 		this.transactionButton = new Button("Extrato");
 		this.employeeButton = new Button("Funcionários");
+		this.employeeButton.focus();
 		buttonsLayout.addComponent(this.transactionButton);
 		buttonsLayout.addComponent(this.employeeButton);
+		
+		
 		
 		return buttonsLayout;
 	}
@@ -114,9 +117,9 @@ public class MainUI extends UI{
 		VerticalLayout formLayout = new VerticalLayout();
 		formLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 			
-		this.transactionGrid = createTransactionGrid();
-		this.gridTransactions.addAll(this.transactionService.findAll());
-		formLayout.addComponent(this.transactionGrid);
+		this.employeeGrid = createEmployeeGrid();
+		this.gridEmployees.addAll(this.employeeService.findAll());
+		formLayout.addComponent(this.employeeGrid);
 		
 		this.transactionButton.addClickListener(click -> {
 			//gridLayout.removeAllComponents();
@@ -127,7 +130,7 @@ public class MainUI extends UI{
 			formLayout.addComponent(this.transactionGrid);
 			int sum = this.transactionService.findAll().stream().mapToInt(o->o.getValue()).sum();
 			Label header = new Label("Saldo: " + sum);
-	        header.addStyleName("green");
+	        header.addStyleName("success");
 	        formLayout.addComponent(header);
 			
 		});
@@ -176,7 +179,7 @@ public class MainUI extends UI{
 		grid.removeAllColumns();
 		grid.addColumn(Transaction::getDateTransaction).setCaption("Data Operação");//.setWidth(196)
 		grid.addColumn(Transaction::getType).setCaption("Tipo Operação");//.setWidth(220) 
-		grid.addColumn(Transaction::getValue).setCaption("Valor Operação");//.setWidth(144)
+		grid.addColumn(Transaction::getValue).setCaption("Valor Operação").setStyleGenerator(cell ->{ return "success";});//.setWidth(144)
 		
 		
 		return grid;
